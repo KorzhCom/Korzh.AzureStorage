@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 namespace Korzh.WindowsAzure.Storage {
 
-    public class BlobStorageService : AzureStorageContext {
+    public class BlobStorageService {
         protected CloudBlobClient Client { get; private set; }
 
         public CloudBlobContainer Container { get; private set; }
 
-        private string containerName;
+        private string _containerName;
 
-        public BlobStorageService(string connectionString, string containerName)
-            : base(connectionString) 
-        {
-            this.containerName = containerName;
-            InitilizeInternal();
+        public BlobStorageService(AzureStorageContext context, string containerName) {
+            this._containerName = containerName;
+            InitilizeInternal(context);
         }
 
-        private void InitilizeInternal() {
-            Client = Account.CreateCloudBlobClient();
+        private void InitilizeInternal(AzureStorageContext context) {
+            Client = context.Account.CreateCloudBlobClient();
 
-            Container = Client.GetContainerReference(containerName);
-            Container.CreateIfNotExistsAsync();
+            Container = Client.GetContainerReference(_containerName);
+            Container.CreateIfNotExistsAsync().Wait();
         }
 
         public Task CreateContainerIfNotExistsAsync() {
@@ -64,8 +62,9 @@ namespace Korzh.WindowsAzure.Storage {
 
         public async Task DownloadToStreamAsync(string blockName, Stream stream) {
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
-            if (await blockBlob.ExistsAsync())            
-                await blockBlob.DownloadToStreamAsync(stream);                                     
+            if (await blockBlob.ExistsAsync()) {
+                await blockBlob.DownloadToStreamAsync(stream);
+            }
         }
 
         public Task UploadFromStreamAsync(string blockName, Stream stream) {

@@ -3,16 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Korzh.AzureStorage</PackageId>
-    <PackageVersion>1.0.0-beta1</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>Korzh.com</Authors>
     <Description>Some useful extensions for Azure Storage SDK classes</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>First public release</PackageReleaseNotes>
-    <Copyright>Copyright 2017 (c) Sergiy Korzh. All rights reserved.</Copyright>
+    <Copyright>Copyright 2017-2018 (c) Sergiy Korzh. All rights reserved.</Copyright>
     <PackageTags>azure storage table blob</PackageTags>
-    <Version>1.0.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0.1</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
     <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 

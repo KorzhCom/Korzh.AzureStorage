@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Korzh.AzureStorage", "src\Korzh.AzureStorage.csproj", "{FB3FC3FF-7431-4860-99A4-4794CB709AF5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F5D8F2E2-0566-495A-9637-E9B924514498}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{73D384FE-3A41-4AD5-9AC8-581B0174C663}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C9B378A2-50EF-4CF0-A2DA-0C02C4BDD05F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Korzh.AzureStorage.Tests", "tests\Korzh.AzureStorage.Tests\Korzh.AzureStorage.Tests.csproj", "{EB0CBA71-7D88-4F40-8B5C-7C431D45954B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +23,17 @@ Global
 		{FB3FC3FF-7431-4860-99A4-4794CB709AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB3FC3FF-7431-4860-99A4-4794CB709AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB3FC3FF-7431-4860-99A4-4794CB709AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0CBA71-7D88-4F40-8B5C-7C431D45954B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0CBA71-7D88-4F40-8B5C-7C431D45954B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0CBA71-7D88-4F40-8B5C-7C431D45954B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0CBA71-7D88-4F40-8B5C-7C431D45954B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB3FC3FF-7431-4860-99A4-4794CB709AF5} = {F5D8F2E2-0566-495A-9637-E9B924514498}
+		{EB0CBA71-7D88-4F40-8B5C-7C431D45954B} = {C9B378A2-50EF-4CF0-A2DA-0C02C4BDD05F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6825F789-391B-4E3F-A7FC-8BB38630C31A}
