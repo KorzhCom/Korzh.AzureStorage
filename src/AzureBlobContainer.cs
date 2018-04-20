@@ -48,8 +48,9 @@ namespace Korzh.WindowsAzure.Storage {
             return null;
         }
 
-        public Task UploadStringAsync(string blockName, string data) {
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);               
+        public Task UploadStringAsync(string blockName, string data, string contentType = "text/plain") {
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            blockBlob.Properties.ContentType = contentType;
             return blockBlob.UploadTextAsync(data);
         }
         
@@ -67,8 +68,11 @@ namespace Korzh.WindowsAzure.Storage {
             }
         }
 
-        public Task UploadFromStreamAsync(string blockName, Stream stream) {
+        public Task UploadFromStreamAsync(string blockName, Stream stream, string contentType = null) {
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            if (contentType != null) {
+                blockBlob.Properties.ContentType = contentType;
+            }
             return blockBlob.UploadFromStreamAsync(stream);
         }
 
@@ -84,8 +88,11 @@ namespace Korzh.WindowsAzure.Storage {
             return null;
         }
 
-        public Task UploadBytesAsync(string blockName, byte[] data) {
+        public Task UploadBytesAsync(string blockName, byte[] data, string contentType = null) {
             CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            if (contentType != null) {
+                blockBlob.Properties.ContentType = contentType;
+            }
             return blockBlob.UploadFromByteArrayAsync(data, 0, data.Length);
         }
 
