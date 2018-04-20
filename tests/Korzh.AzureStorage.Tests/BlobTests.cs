@@ -18,7 +18,7 @@ namespace Korzh.AzureStorage.Tests
         {
             var context = new DefaultAzureStorageContext("UseDevelopmentStorage=true");
 
-            var blobService = new BlobStorageService(context, "test-container");
+            var blobService = new AzureBlobContainer(context, "test-container");
 
             string srcFileName = "easy-query256.png";
             await blobService.UploadFromStreamAsync(srcFileName, GetResourceAsStream(srcFileName));

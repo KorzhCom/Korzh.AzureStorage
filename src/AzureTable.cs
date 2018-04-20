@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Korzh.WindowsAzure.Storage
 {
-	public class TableStorageService<T>  where T : ITableEntity, new()
+	public class AzureTable<T>  where T : ITableEntity, new()
 	{
 		public const string PartitionKey = "PartitionKey";
 		public const string RowKey = "RowKey";
@@ -21,21 +21,18 @@ namespace Korzh.WindowsAzure.Storage
 
 		protected string TableName { get; private set; }
 
-        public TableStorageService(AzureStorageContext context) 
+        public AzureTable(AzureStorageContext context) 
             : this(context, typeof(T).Name + "Table") 
         {
         }
 
-
-        public TableStorageService(AzureStorageContext context, string tableName)  {
+        public AzureTable(AzureStorageContext context, string tableName)  {
             TableName = tableName;
             InitilizeInternal(context);
         }
 
-
-
         private void InitilizeInternal(AzureStorageContext context) {
-			Client = context.Account.CreateCloudTableClient();
+			Client = context.GetTableClient();
 			Table = Client.GetTableReference(TableName);
             CreateTableIfNotExistsAsync().Wait();
         }

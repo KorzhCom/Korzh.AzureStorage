@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
             if (setupAction == null) {
                 throw new ArgumentNullException(nameof(setupAction));
             }
-            services.AddSingleton<DefaultAzureStorageContext>((serviceProvider) => {
+            services.AddSingleton<AzureStorageContext>((serviceProvider) => {
                 AzureStorageOptions options = new AzureStorageOptions();
                 setupAction(options);
                 return new DefaultAzureStorageContext(options.ConnectionString);

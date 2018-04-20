@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Korzh.WindowsAzure.Storage {
 
-    public class BlobStorageService {
+    public class AzureBlobContainer {
         protected CloudBlobClient Client { get; private set; }
 
         public CloudBlobContainer Container { get; private set; }
 
         private string _containerName;
 
-        public BlobStorageService(AzureStorageContext context, string containerName) {
+        public AzureBlobContainer(AzureStorageContext context, string containerName) {
             this._containerName = containerName;
             InitilizeInternal(context);
         }
 
         private void InitilizeInternal(AzureStorageContext context) {
-            Client = context.Account.CreateCloudBlobClient();
+            Client = context.GetBlobClient();
 
             Container = Client.GetContainerReference(_containerName);
             Container.CreateIfNotExistsAsync().Wait();
