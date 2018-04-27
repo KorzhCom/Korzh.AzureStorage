@@ -18,18 +18,20 @@ namespace Korzh.AzureStorage.Tests
         {
             var context = new DefaultAzureStorageContext("UseDevelopmentStorage=true");
 
-            var blobService = new AzureBlobContainer(context, "test-container");
+            var blobContainer = new AzureBlobContainer(context, "test-container");
 
             string srcFileName = "easy-query256.png";
-            await blobService.UploadFromStreamAsync(srcFileName, GetResourceAsStream(srcFileName));
+            await blobContainer.UploadFromStreamAsync(srcFileName, GetResourceAsStream(srcFileName));
 
             string destFileName = "__fileFromBlob.png";
             using (var fileFromBlob = new FileStream(destFileName, FileMode.Create)) {
-                await blobService.DownloadToStreamAsync(srcFileName, fileFromBlob);
+                await blobContainer.DownloadToStreamAsync(srcFileName, fileFromBlob);
                 fileFromBlob.Flush();
             }
 
             Assert.IsTrue(File.Exists(destFileName));
+
+            await blobContainer.DeleteContainerAsync();
         }
 
 
