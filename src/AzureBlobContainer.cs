@@ -48,25 +48,25 @@ namespace Korzh.WindowsAzure.Storage {
             return result;
         }
 
-        public async Task<string> DownloadStringAsync(string blockName) {
+        public async Task<string> DownloadStringAsync(string blobName) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             if (await blockBlob.ExistsAsync())
                 return await blockBlob.DownloadTextAsync();
             return null;
         }
 
-        public Task UploadStringAsync(string blockName, string data, string contentType = "text/plain") {
+        public Task UploadStringAsync(string blobName, string data, string contentType = "text/plain") {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             blockBlob.Properties.ContentType = contentType;
             return blockBlob.UploadTextAsync(data);
         }
         
 
-        public async Task<bool> DeleteBlobAsync(string blockName) {
+        public async Task<bool> DeleteBlobAsync(string blobName) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             return await blockBlob.DeleteIfExistsAsync();
         }
 
@@ -87,18 +87,18 @@ namespace Korzh.WindowsAzure.Storage {
             }
         }
 
-        public Task UploadFromStreamAsync(string blockName, Stream stream, string contentType = null) {
+        public Task UploadFromStreamAsync(string blobName, Stream stream, string contentType = null) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             if (contentType != null) {
                 blockBlob.Properties.ContentType = contentType;
             }
             return blockBlob.UploadFromStreamAsync(stream);
         }
 
-        public async Task<byte[]> DownloadBytesAsync(string blockName) {
+        public async Task<byte[]> DownloadBytesAsync(string blobName) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             if (await blockBlob.ExistsAsync()) {
                 using (var ms = new MemoryStream()) {
                     await blockBlob.DownloadToStreamAsync(ms);
@@ -109,19 +109,36 @@ namespace Korzh.WindowsAzure.Storage {
             return null;
         }
 
-        public Task UploadBytesAsync(string blockName, byte[] data, string contentType = null) {
+        public Task UploadBytesAsync(string blobName, byte[] data, string contentType = null) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             if (contentType != null) {
                 blockBlob.Properties.ContentType = contentType;
             }
             return blockBlob.UploadFromByteArrayAsync(data, 0, data.Length);
         }
 
-        public async Task<Stream> OpenReadStreamAsync(string blockName) {
+        public async Task<Stream> OpenReadStreamAsync(string blobName) {
             CheckContainer();
-            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blockName);
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
             return await blockBlob.OpenReadAsync();
+        }
+
+        public async Task<Stream> OpenWriteStreamAsync(string blobName) {
+            CheckContainer();
+            CloudBlockBlob blockBlob = Container.GetBlockBlobReference(blobName);
+            return await blockBlob.OpenWriteAsync();
+        }
+
+        public bool ContainerExists {
+            get {
+                return Container.ExistsAsync().Result;
+            }
+        }
+
+        public bool BlobExists(string blobName) {
+            var blockBlob = Container.GetBlockBlobReference(blobName);
+            return blockBlob.ExistsAsync().Result;
         }
     }
 }

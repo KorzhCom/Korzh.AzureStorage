@@ -2,7 +2,9 @@
 using Microsoft.WindowsAzure.Storage.Auth;
 
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
+
 
 namespace Korzh.WindowsAzure.Storage
 {
@@ -41,6 +43,16 @@ namespace Korzh.WindowsAzure.Storage
                 _tableClient = Account.CreateCloudTableClient();
             }
             return _tableClient;
+        }
+
+        private CloudQueueClient _queueClient;
+
+        public CloudQueueClient GetQueueClient() {
+            if (_queueClient == null) {
+                _queueClient = Account.CreateCloudQueueClient();
+            }
+            return _queueClient;
+
         }
     }
 
