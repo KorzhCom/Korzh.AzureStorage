@@ -13,12 +13,18 @@ namespace Korzh.AzureStorage.Tests
     [TestClass]
     public class BlobTests
     {
+        AzureStorageContext _context;
+
+        public BlobTests() {
+            _context = new DefaultAzureStorageContext("UseDevelopmentStorage=true");
+        }
+
+
         [TestMethod]
         public async Task Create_Container_Put_File_Read_Back()
         {
-            var context = new DefaultAzureStorageContext("UseDevelopmentStorage=true");
 
-            var blobContainer = new AzureBlobContainer(context, "test-container");
+            var blobContainer = new AzureBlobContainer(_context, "test-container");
 
             string srcFileName = "easy-query256.png";
             await blobContainer.UploadFromStreamAsync(srcFileName, GetResourceAsStream(srcFileName));
@@ -44,6 +50,24 @@ namespace Korzh.AzureStorage.Tests
                 return a.GetManifestResourceStream(fullName);
             else
                 return null;
+        }
+
+        [TestMethod]
+        public async Task Create_Container_And_SaveToIt_Immetiately() {
+            var blobContainer = new AzureBlobContainer(_context, "new-test-container");
+
+            try {
+                var blobName = "test-blob";
+                var dataToUpload = "Some testing data";
+                await blobContainer.UploadStringAsync(blobName, dataToUpload);
+
+                var downloadedData = await blobContainer.DownloadStringAsync(blobName);
+
+                Assert.AreEqual(dataToUpload, downloadedData);
+            }
+            finally {
+                await blobContainer.DeleteContainerAsync();
+            }
         }
     }
 }

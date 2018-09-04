@@ -12,6 +12,7 @@ namespace Korzh.WindowsAzure.Storage {
         public CloudBlobContainer Container { get; private set; }
 
         private string _containerName;
+        private Task _createContainerTask;
 
         public AzureBlobContainer(AzureStorageContext context, string containerName) {
             this._containerName = containerName;
@@ -22,7 +23,7 @@ namespace Korzh.WindowsAzure.Storage {
             Client = context.GetBlobClient();
 
             Container = Client.GetContainerReference(_containerName);
-            Container.CreateIfNotExistsAsync().Wait();
+            _createContainerTask = Container.CreateIfNotExistsAsync();
         }
 
         public Task CreateContainerIfNotExistsAsync() {
@@ -33,6 +34,7 @@ namespace Korzh.WindowsAzure.Storage {
             if (Container == null) {
                 throw new InvalidOperationException("Container is null (possibly deleted?)");
             }
+            _createContainerTask.Wait();
         }
 
         public async Task<IEnumerable<IListBlobItem>> ListAllBlobs() {
