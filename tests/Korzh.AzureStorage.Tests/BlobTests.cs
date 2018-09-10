@@ -16,7 +16,7 @@ namespace Korzh.AzureStorage.Tests
         AzureStorageContext _context;
 
         public BlobTests() {
-            _context = new DefaultAzureStorageContext("DefaultEndpointsProtocol=https;AccountName=aistantfilestest;AccountKey=lsnFNSMRWQ+08bj0//DewXZ6HzRuRWji5a9fnBHy5IYlXHGn90TLcntBkE2snAA6bZFevPc4J0DiVu+7/61H+w==;BlobEndpoint=https://aistantfilestest.blob.core.windows.net/;TableEndpoint=https://aistantfilestest.table.core.windows.net/;"); //UseDevelopmentStorage=true
+            _context = new DefaultAzureStorageContext("UseDevelopmentStorage=true"); 
         }
 
 
