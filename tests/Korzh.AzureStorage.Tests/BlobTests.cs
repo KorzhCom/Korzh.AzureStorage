@@ -16,14 +16,13 @@ namespace Korzh.AzureStorage.Tests
         AzureStorageContext _context;
 
         public BlobTests() {
-            _context = new DefaultAzureStorageContext("UseDevelopmentStorage=true");
+            _context = new DefaultAzureStorageContext("DefaultEndpointsProtocol=https;AccountName=aistantfilestest;AccountKey=lsnFNSMRWQ+08bj0//DewXZ6HzRuRWji5a9fnBHy5IYlXHGn90TLcntBkE2snAA6bZFevPc4J0DiVu+7/61H+w==;BlobEndpoint=https://aistantfilestest.blob.core.windows.net/;TableEndpoint=https://aistantfilestest.table.core.windows.net/;"); //UseDevelopmentStorage=true
         }
 
 
         [TestMethod]
         public async Task Create_Container_Put_File_Read_Back()
         {
-
             var blobContainer = new AzureBlobContainer(_context, "test-container");
 
             string srcFileName = "easy-query256.png";
